@@ -1,0 +1,196 @@
+cd DineCraft
+
+php artisan serve
+
+in browser search http://localhost/DineCraft/public
+
+
+
+check database:
+
+admin
+
+| Column   | Type                              |
+| -------- | --------------------------------- |
+| admin_id | INT (Primary Key, Auto Increment) |
+| username | VARCHAR(50)                       |
+| password | VARCHAR(255)                      |
+
+
+staff
+
+| Column   | Type                              |
+| -------- | --------------------------------- |
+| staff_id | INT (Primary Key, Auto Increment) |
+| name     | VARCHAR(100)                      |
+| email    | VARCHAR(100)                      |
+| password | VARCHAR(255)                      |
+| role     | VARCHAR(50)                       |
+
+
+
+create AuthController:
+
+type in cmd
+php artisan make:controller AuthController
+
+
+C:\xampp\htdocs\DineCraft\app\Http\Controllers\AuthController.php
+
+inside AuthController.php
+
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\DB;
+
+class AuthController extends Controller
+{
+    // Show login page
+    public function showLogin()
+    {
+        return view('auth.login');
+    }
+
+    // Handle login
+    public function login(Request $request)
+    {
+        $request->validate([
+            'email' => 'required|email',
+            'password' => 'required'
+        ]);
+
+        // Check admin table
+        $admin = DB::table('admin')->where('username', $request->email)->first();
+        if ($admin && Hash::check($request->password, $admin->password)) {
+            session([
+                'user_id' => $admin->admin_id,
+                'name' => $admin->username,
+                'role' => 'admin'
+            ]);
+            return redirect('/admin/dashboard');
+        }
+
+        // Check staff table
+        $staff = DB::table('staff')->where('email', $request->email)->first();
+        if ($staff && Hash::check($request->password, $staff->password)) {
+            session([
+                'user_id' => $staff->staff_id,
+                'name' => $staff->name,
+                'role' => 'staff'
+            ]);
+            return redirect('/staff/dashboard');
+        }
+
+        // Invalid login
+        return back()->with('error', 'Invalid email or password');
+    }
+
+    // Logout
+    public function logout()
+    {
+        session()->flush();
+        return redirect('/login');
+    }
+}
+
+
+
+inside routes/web.php
+
+<?php
+
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AuthController;
+
+// Login
+Route::get('/login', [AuthController::class, 'showLogin']);
+Route::post('/login', [AuthController::class, 'login']);
+
+// Logout
+Route::get('/logout', [AuthController::class, 'logout']);
+
+// Admin dashboard
+Route::get('/admin/dashboard', function () {
+    if(session('role') !== 'admin') {
+        return redirect('/login');
+    }
+    return view('admin.dashboard'); // create this blade
+});
+
+// Staff dashboard
+Route::get('/staff/dashboard', function () {
+    if(session('role') !== 'staff') {
+        return redirect('/login');
+    }
+    return view('staff.dashboard'); // create this blade
+});
+
+
+
+inside resource/views/auth/login.blade.php
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Dinecraft Login</title>
+</head>
+<body>
+
+<h2>Dinecraft Restaurant Login</h2>
+
+<form action="/login" method="POST">
+    @csrf
+    <label>Email:</label>
+    <input type="email" name="email" required>
+    <label>Password:</label>
+    <input type="password" name="password" required>
+    <button type="submit">Login</button>
+</form>
+
+@if(session('error'))
+    <p style="color:red">{{ session('error') }}</p>
+@endif
+
+</body>
+</html>
+
+create public/hash.php
+
+<?php
+echo "Admin hash: " . password_hash("admin123", PASSWORD_BCRYPT) . "<br>";
+echo "Staff hash: " . password_hash("staff123", PASSWORD_BCRYPT) . "<br>";
+
+in browser http://localhost/DineCraft/public/hash.php
+
+
+-- Update admin
+UPDATE `admin`
+SET `username` = 'admin@dinecraft.com',
+    `password` = '$2y$10$IwI2h.OJ3JBEI2wZYG2v6.i03gPV3tOQ6e3t.MOGLoiBSnpQN9Fny'
+WHERE `admin_id` = 1;
+
+-- Update staff
+UPDATE `staff`
+SET `name` = 'Staff',
+    `email` = 'staff@dinecraft.com',
+    `password` = '$2y$10$5VgYkqPr/sb5g.GRIQC2oeEvX/ejbfaJ1Wei.dSRJ5Q.S.O4FtU8e',
+    `role` = 'waiter'
+WHERE `staff_id` = 101;
+
+
+test login
+
+http://localhost/DineCraft/public/login
+
+Email			Password	Role
+
+admin@dinecraft.com	admin123	admin
+
+staff@dinecraft.com	staff123	staff
+
+
+
