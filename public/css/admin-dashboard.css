@@ -1,0 +1,54 @@
+/* Global */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background: #f4f4f9;
+    color: #333;
+}
+
+/* Layout */
+.app-container {
+    display: flex;
+    height: 100vh;
+    flex-wrap: wrap;
+}
+
+/* Sidebar */
+.sidebar {
+    width: 220px;
+    background: #8B4513;
+    padding: 20px;
+    color: white;
+}
+
+.sidebar .logo {
+    font-size: 24px;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.sidebar-nav a {
+    display: block;
+    padding: 12px;
+    color: white;
+    text-decoration: none;
+    border-radius: 6px;
+    margin: 6px 0;
+    transition: 0.3s;
+}
+
+.sidebar-nav a.active,
+.sidebar-nav a:hover {
+    background: #FF6347;
+}
+
+.sidebar-nav i {
+    margin-right: 10px;
+}
+

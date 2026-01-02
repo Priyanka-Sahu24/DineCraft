@@ -1,15 +1,31 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Admin Dashboard</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - Dinecraft</title>
+
+    <link rel="stylesheet" href="{{ asset('css/admin-dashboard.css') }}">
+    
 </head>
 <body>
 
-<h2>Welcome, Admin {{ session('name') }}</h2>
+<div class="app-container">
 
-<p>This is the admin dashboard.</p>
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+        <div class="logo">Dinecraft</div>
+        <nav class="sidebar-nav">
+            <a href="#" class="active"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
+            <a href="#"><i class="fas fa-box"></i> Orders</a>
+            <a href="#"><i class="fas fa-users"></i> Customers</a>
+            <a href="#"><i class="fas fa-user-cog"></i> Staff</a>
+            <a href="#"><i class="fas fa-chart-line"></i> Reports</a>
+            <a href="#"><i class="fas fa-cogs"></i> Settings</a>
+        </nav>
+    </aside>
 
-<a href="{{ url('/logout') }}">Logout</a>
+  
 
 </body>
 </html>
