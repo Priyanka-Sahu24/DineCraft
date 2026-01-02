@@ -1,0 +1,119 @@
+/* Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #fcfcfc; /* White background */
+    color: #333;
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Center vertically */
+    align-items: center; /* Center horizontally */
+    height: 100vh;
+    text-align: center; /* Center text in the body */
+}
+
+/* Title Styling */
+h2 {
+    font-family: 'Georgia', serif;
+    color: #D2691E; 
+    font-size: 36px;
+    margin-top: 0; 
+    margin-bottom: 50px; 
+    width: 100%;
+}
+
+h6 {
+    font-family: 'Arial', sans-serif;
+    color: #555;
+    font-size: 16px;
+    margin-bottom: 10px;
+    width: 100%;
+}
+p.outset {
+    border: 2px outset #D2691E; 
+    padding: 10px;
+    margin-bottom: 30px;
+    font-weight: bold;
+    width: 100%;
+    max-width: 400px;
+    background-color: #fff8f0; 
+}
+
+form {
+    background: gainsboro; 
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+}
+
+label {
+    font-size: 14px;
+    font-weight: bold;
+    color: #D2691E;
+    margin-bottom: 8px;
+    display: block;
+}
+
+input[type="email"],
+input[type="password"] {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 16px;
+    background-color: #f7f7f7;
+    transition: border-color 0.3s;
+}
+
+input[type="email"]:focus,
+input[type="password"]:focus {
+    border-color: #D2691E;
+    outline: none;
+}
+
+button {
+    width: 100%;
+    padding: 14px;
+    background-color: #D2691E; 
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 18px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #8B4513; 
+}
+
+/* Error Message */
+p {
+    text-align: center;
+    color: #FF6347; 
+    font-weight: bold;
+    margin-top: 20px;
+}
+
+
+@media (max-width: 768px) {
+    h2 {
+        font-size: 28px;
+    }
+
+    form {
+        padding: 20px;
+    }
+
+    button {
+        font-size: 16px;
+    }
+}
