@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\DB;
 
 class AuthController extends Controller
 {
-    // Show login page
+    // Show login form
     public function showLogin()
     {
         return view('auth.login');
@@ -22,10 +22,10 @@ class AuthController extends Controller
             'password' => 'required'
         ]);
 
-        // Check admin table (your column is username)
+        // Check admin table
         $admin = DB::table('admin')->where('username', $request->email)->first();
         if ($admin && Hash::check($request->password, $admin->password)) {
-            // Store session for admin
+            
             session([
                 'user_id' => $admin->admin_id,
                 'name' => $admin->username,
@@ -37,7 +37,7 @@ class AuthController extends Controller
         // Check staff table
         $staff = DB::table('staff')->where('email', $request->email)->first();
         if ($staff && Hash::check($request->password, $staff->password)) {
-            // Store session for staff
+        
             session([
                 'user_id' => $staff->staff_id,
                 'name' => $staff->name,
