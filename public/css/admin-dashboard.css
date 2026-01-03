@@ -1,4 +1,4 @@
-/* Global */
+
 * {
     margin: 0;
     padding: 0;
@@ -11,14 +11,14 @@ body {
     color: #333;
 }
 
-/* Layout */
+
 .app-container {
     display: flex;
     height: 100vh;
     flex-wrap: wrap;
 }
 
-/* Sidebar */
+
 .sidebar {
     width: 220px;
     background: #8B4513;
