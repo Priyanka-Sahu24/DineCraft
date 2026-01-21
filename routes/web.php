@@ -5,11 +5,24 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\MenuManageController;
 use App\Http\Controllers\StockController;
 use App\Http\Controllers\MenuController;
+use App\Http\Controllers\CategoryController;
 
 
-Route::get('/menu', [MenuController::class, 'index']);
-Route::post('/menu/store', [MenuController::class, 'store']);
-Route::delete('/menu/delete/{id}', [MenuController::class, 'destroy']);
+Route::get('/', function () {
+    return redirect('/menu');
+});
+
+Route::resource('category', CategoryController::class);
+Route::resource('stock', StockController::class);
+Route::resource('menu', MenuController::class);
+
+Route::get('menu', [MenuController::class, 'index'])->name('menu.index');  // View menu list
+Route::get('menu/create', [MenuController::class, 'create'])->name('menu.create');  // Add menu page
+Route::post('menu', [MenuController::class, 'store'])->name('menu.store');  // Store menu
+Route::get('menu/{id}/edit', [MenuController::class, 'edit'])->name('menu.edit');  // Edit menu page
+Route::put('menu/{id}/update', [MenuController::class, 'update'])->name('menu.update');  // Update menu
+Route::delete('menu/{id}', [MenuController::class, 'destroy'])->name('menu.destroy');  // Delete menu
+Route::post('menu/{id}/toggle-availability', [MenuController::class, 'toggleAvailability'])->name('menu.toggleAvailability');  // Toggle availability
 
 Route::get('/stock', [StockController::class, 'index']);
 Route::post('/stock', [StockController::class, 'store']);

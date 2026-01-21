@@ -1,56 +1,28 @@
 <?php
-
 namespace App\Http\Controllers;
-
-use Illuminate\Http\Request;
 use App\Models\Stock;
-use Maatwebsite\Excel\Facades\Excel;
-use App\Exports\StockExport;
+use Illuminate\Http\Request;
 
-class StockController extends Controller
-{
-    public function index(Request $request)
-    {
-        $search = $request->search ?? "";
 
-        $stocks = Stock::where('item_name','LIKE',"%$search%")
-                        ->orderBy('id','desc')
-                        ->get();
-
-        return view('stock.manage', compact('stocks','search'));
-    }
-
-    public function store(Request $request)
-    {
-        Stock::create([
-            'item_name' => $request->item_name,
-            'quantity' => $request->quantity,
-            'unit' => $request->unit,
-            'expiry_date' => $request->expiry_date,
-        ]);
-
-        return redirect('/stock');
-    }
-
-    public function update(Request $request, $id)
-    {
-        $stock = Stock::find($id);
-        $stock->update([
-            'item_name' => $request->item_name,
-            'quantity' => $request->quantity,
-        ]);
-
-        return redirect('/stock');
-    }
-
-    public function destroy($id)
-    {
-        Stock::destroy($id);
-        return redirect('/stock');
-    }
-
-    public function exportExcel()
-    {
-        return Excel::download(new StockExport, 'stocks.xlsx');
-    }
+class StockController extends Controller {
+public function index(){
+$stocks = Stock::all();
+return view('stock.index', compact('stocks'));
+}
+public function store(Request $request){
+Stock::create($request->all());
+return back();
+}
+public function edit($id){
+$stock = Stock::find($id);
+return view('stock.edit', compact('stock'));
+}
+public function update(Request $request, $id){
+Stock::find($id)->update($request->all());
+return redirect('/stock');
+}
+public function destroy($id){
+Stock::destroy($id);
+return back();
+}
 }

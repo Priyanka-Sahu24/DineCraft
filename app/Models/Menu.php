@@ -1,22 +1,18 @@
 <?php
-
 namespace App\Models;
-
 use Illuminate\Database\Eloquent\Model;
 
-class Menu extends Model
-{
-    protected $table = 'menus'; // your existing table
 
-    protected $fillable = ['name', 'price'];
+class Menu extends Model {
+protected $table = 'menus';
+protected $fillable = ['name','category_id','stock_id','stock_used','price'];
+public $timestamps = false;
 
-    public function ingredients()
-    {
-        return $this->belongsToMany(
-            Stock::class,
-            'menu_ingredients',     // pivot table
-            'menu_id',
-            'stock_id'
-        )->withPivot('quantity_used');
-    }
+
+public function category(){
+return $this->belongsTo(Category::class);
+}
+public function stock(){
+return $this->belongsTo(Stock::class);
+}
 }
