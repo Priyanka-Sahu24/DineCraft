@@ -103,7 +103,7 @@ p[style] {
 <h6> WELCOME, PLEASE LOGIN TO CONTINUE </h6>
 <p class="outset">ADMIN & STAFF</p>
 <form action="/login" method="POST">
-    @csrf
+    <?php echo csrf_field(); ?>
     <label>Email:</label>
     <input type="email" name="email" required>
     <label>Password:</label>
@@ -111,9 +111,10 @@ p[style] {
     <button type="submit">Login</button>
 </form>
 
-@if(session('error'))
-    <p style="color:red">{{ session('error') }}</p>
-@endif
+<?php if(session('error')): ?>
+    <p style="color:red"><?php echo e(session('error')); ?></p>
+<?php endif; ?>
 
 </body>
 </html>
+<?php /**PATH C:\xampp\htdocs\DineCraft\resources\views/auth/login.blade.php ENDPATH**/ ?>

@@ -1,13 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Manage Menu</title>
-    <style>
-        /* Your styles go here */
-    </style>
-</head>
-<body>
+@extends('layout')
+@section('content')
 
 <div class="container">
     <h2>Menu List</h2>
@@ -52,5 +44,4 @@
     </table>
 </div>
 
-</body>
-</html>
+@endsection

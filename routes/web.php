@@ -6,6 +6,7 @@ use App\Http\Controllers\MenuManageController;
 use App\Http\Controllers\StockController;
 use App\Http\Controllers\MenuController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\DashboardController;
 
 
 Route::get('/', function () {
@@ -15,6 +16,7 @@ Route::get('/', function () {
 Route::resource('category', CategoryController::class);
 Route::resource('stock', StockController::class);
 Route::resource('menu', MenuController::class);
+Route::resource('payments', PaymentController::class);
 
 Route::get('menu', [MenuController::class, 'index'])->name('menu.index');  // View menu list
 Route::get('menu/create', [MenuController::class, 'create'])->name('menu.create');  // Add menu page
@@ -49,12 +51,7 @@ Route::post('/login', [AuthController::class, 'login']);
 Route::get('/logout', [AuthController::class, 'logout']);
 
 // Admin dashboard
-Route::get('/admin/dashboard', function () {
-    if(session('role') !== 'admin') {
-        return redirect('/login');
-    }
-    return view('admin.dashboard');
-});
+Route::get('/admin/dashboard', [DashboardController::class, 'admin']);
 
 // Staff dashboard
 Route::get('/staff/dashboard', function () {

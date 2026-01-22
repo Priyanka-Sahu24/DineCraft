@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 class CategoryController extends Controller {
 public function index(){
 $categories = Category::all();
-return view('category.index', compact('categories'));
+return view('admin.category.index', compact('categories'));
 }
 public function store(Request $request){
 Category::create($request->all());
@@ -15,7 +15,7 @@ return back();
 }
 public function edit($id){
 $category = Category::find($id);
-return view('category.edit', compact('category'));
+return view('admin.category.edit', compact('category'));
 }
 public function update(Request $request, $id){
 Category::find($id)->update($request->all());

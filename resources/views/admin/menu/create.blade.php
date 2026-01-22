@@ -1,10 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Create New Menu Item</title>
-</head>
-<body>
+@extends('layout')
+@section('content')
 
 <h2>Add New Menu Item</h2>
 
@@ -32,5 +27,4 @@
     <button type="submit">Add Menu</button>
 </form>
 
-</body>
-</html>
+@endsection

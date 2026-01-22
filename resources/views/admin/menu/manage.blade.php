@@ -1,7 +1,5 @@
-<!DOCTYPE html>
-<html>
-<head>
-<title>Manage Menu</title>
+@extends('layout')
+@section('content')
 
 <style>
 body{
@@ -51,9 +49,6 @@ function addIngredientRow(){
     document.getElementById('ingredient-list').appendChild(clone);
 }
 </script>
-</head>
-
-<body>
 
 <div class="container">
 
@@ -126,5 +121,4 @@ function addIngredientRow(){
 
 </div>
 
-</body>
-</html>
+@endsection
