@@ -9,7 +9,7 @@
 <div class="sidebar">
     <h2>Dinecraft</h2>
     <a href="/admin/dashboard">Dashboard</a>
-    <a href="/menu">Manage Menu</a>
+    <a href="/admin/menu">Manage Menu</a>
     <a href="/category">Manage Categories</a>
     <a href="/stock">Manage Stock Items</a>
     <a href="/staff">Manage Staff</a>

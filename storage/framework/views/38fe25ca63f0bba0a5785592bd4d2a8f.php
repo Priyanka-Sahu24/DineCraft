@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Dinecraft Login</title>
+    <title>DineCraft Customer Login</title>
     <style>
 * {
     margin: 0;
@@ -95,14 +95,29 @@ p[style] {
     font-size: 14px;
     font-weight: 600;
 }
+
+.register-link {
+    margin-top: 20px;
+    font-size: 14px;
+}
+
+.register-link a {
+    color: #ff7a00;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.register-link a:hover {
+    text-decoration: underline;
+}
     </style>
 </head>
 <body>
 
-<h2>Dinecraft Restaurant Login</h2>
-<h6> WELCOME, PLEASE LOGIN TO CONTINUE </h6>
-<p class="outset">ADMIN & STAFF</p>
-<form action="/login" method="POST">
+<h2>DineCraft Restaurant</h2>
+<h6>WELCOME CUSTOMER, PLEASE LOGIN TO CONTINUE</h6>
+<p class="outset">CUSTOMER LOGIN</p>
+<form action="/customer/login" method="POST">
     <?php echo csrf_field(); ?>
     <label>Email:</label>
     <input type="email" name="email" required>
@@ -115,6 +130,7 @@ p[style] {
     <p style="color:red"><?php echo e(session('error')); ?></p>
 <?php endif; ?>
 
+<p class="register-link">Don't have an account? <a href="/customer/register">Register here</a></p>
+
 </body>
-</html>
-<?php /**PATH C:\xampp\htdocs\DineCraft\resources\views/auth/login.blade.php ENDPATH**/ ?>
+</html><?php /**PATH C:\xampp\htdocs\DineCraft\resources\views/customer/login.blade.php ENDPATH**/ ?>

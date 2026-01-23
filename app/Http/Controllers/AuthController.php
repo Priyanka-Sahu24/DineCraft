@@ -14,6 +14,12 @@ class AuthController extends Controller
         return view('auth.login');
     }
 
+    // Show customer login form
+    public function showCustomerLogin()
+    {
+        return view('customer.login');
+    }
+
     // Handle login
     public function login(Request $request)
     {
@@ -44,6 +50,29 @@ class AuthController extends Controller
                 'role' => 'staff'
             ]);
             return redirect('/staff/dashboard');
+        }
+
+        // Invalid login
+        return back()->with('error', 'Invalid email or password');
+    }
+
+    // Handle customer login
+    public function customerLogin(Request $request)
+    {
+        $request->validate([
+            'email' => 'required|email',
+            'password' => 'required'
+        ]);
+
+        // Check users table for customer
+        $user = DB::table('users')->where('email', $request->email)->first();
+        if ($user && Hash::check($request->password, $user->password) && $user->role == 'customer') {
+            session([
+                'user_id' => $user->id,
+                'name' => $user->name,
+                'role' => 'customer'
+            ]);
+            return redirect('/customer/home');
         }
 
         // Invalid login

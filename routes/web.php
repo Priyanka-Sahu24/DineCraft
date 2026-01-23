@@ -7,18 +7,24 @@ use App\Http\Controllers\StockController;
 use App\Http\Controllers\MenuController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\CustomerController;
 
 
 Route::get('/', function () {
-    return redirect('/menu');
+    return redirect('/customer/home');
 });
 
-Route::resource('category', CategoryController::class);
-Route::resource('stock', StockController::class);
-Route::resource('menu', MenuController::class);
-Route::resource('payments', PaymentController::class);
+Route::middleware('admin')->group(function () {
+    Route::resource('category', CategoryController::class);
+    Route::resource('stock', StockController::class);
+    Route::resource('menu', MenuController::class)->parameters(['menu' => 'admin/menu']);
+    Route::get('admin/menu', [MenuController::class, 'index'])->name('admin.menu.index');
+});
 
-Route::get('menu', [MenuController::class, 'index'])->name('menu.index');  // View menu list
+Route::get('/menu', function () {
+    $menus = \App\Models\Menu::with('category')->get();
+    return view('menu', compact('menus'));
+});
 Route::get('menu/create', [MenuController::class, 'create'])->name('menu.create');  // Add menu page
 Route::post('menu', [MenuController::class, 'store'])->name('menu.store');  // Store menu
 Route::get('menu/{id}/edit', [MenuController::class, 'edit'])->name('menu.edit');  // Edit menu page
@@ -59,4 +65,21 @@ Route::get('/staff/dashboard', function () {
         return redirect('/login');
     }
     return view('staff.dashboard');
+});
+
+// Customer login routes (outside middleware)
+Route::get('/customer/login', [AuthController::class, 'showCustomerLogin'])->name('customer.login');
+Route::post('/customer/login', [AuthController::class, 'customerLogin']);
+
+// Public customer home page (no login required)
+Route::get('/customer/home', [CustomerController::class, 'home'])->name('customer.home.public');
+
+// Customer routes (require login)
+Route::middleware('customer')->prefix('customer')->group(function () {
+    Route::get('/menu', [CustomerController::class, 'menu'])->name('customer.menu');
+    Route::get('/cart', [CustomerController::class, 'cart'])->name('customer.cart');
+    Route::post('/checkout', [CustomerController::class, 'checkout'])->name('customer.checkout');
+    Route::get('/orders', [CustomerController::class, 'orders'])->name('customer.orders');
+    Route::get('/profile', [CustomerController::class, 'profile'])->name('customer.profile');
+    Route::post('/profile/update', [CustomerController::class, 'updateProfile'])->name('customer.profile.update');
 });
