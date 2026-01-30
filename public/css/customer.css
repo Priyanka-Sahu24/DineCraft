@@ -1,0 +1,59 @@
+:root {
+    --primary: #ff7a18;
+    --primary-dark: #e66f12;
+    --bg: #fff6f2;
+    --card: #ffffff;
+    --muted: #777;
+}
+
+*{box-sizing:border-box}
+body{font-family: Arial, Helvetica, sans-serif;background:#fbf7f4;color:#222;margin:0}
+
+.container{max-width:1100px;margin:20px auto;padding:0 18px;width:95%}
+
+.hero{background:linear-gradient(180deg, rgba(255,122,24,0.18), rgba(255,122,24,0.06));padding:28px;border-radius:12px}
+.hero-inner{display:flex;align-items:center;gap:18px;flex-wrap:wrap}
+.hero-text{flex:1;min-width:220px}
+.hero-text h1{font-size:34px;margin:0 0 12px;color:var(--primary-dark)}
+.hero-text .lead{color:var(--muted);margin-bottom:16px}
+.cta-btn{background:var(--primary);color:#fff;padding:10px 16px;border-radius:8px;text-decoration:none;display:inline-block;box-shadow:0 6px 18px rgba(255,122,24,0.18)}
+
+.hero-art{width:auto;flex:0 0 380px}
+
+.category-box{background:var(--card);padding:16px;border-radius:10px;box-shadow:0 6px 20px rgba(0,0,0,0.04);margin-bottom:18px}
+.category-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+.category-header h3{color:var(--primary);margin:0}
+
+.food-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:16px}
+.food-card{background:var(--card);border-radius:10px;padding:12px;box-shadow:0 6px 18px rgba(0,0,0,0.04);display:flex;flex-direction:column;align-items:flex-start}
+.food-card img{width:100%;height:140px;object-fit:cover;border-radius:8px;margin-bottom:10px}
+.food-card h4{margin:6px 0 4px;font-size:16px}
+.food-card .price{color:var(--primary);font-weight:700;margin-bottom:8px}
+.add-btn{background:var(--primary);color:#fff;padding:8px 12px;border-radius:8px;text-decoration:none;display:inline-block}
+
+.badge{display:inline-block;padding:4px 8px;border-radius:12px;font-size:12px}
+.available{background:#2ecc71;color:#fff}
+.unavailable{background:#e74c3c;color:#fff}
+
+/* compact footer */
+.footer{text-align:center;color:var(--muted);font-size:13px;margin:22px 0}
+
+/* Responsive tweaks */
+@media (max-width:900px){
+    .hero-art{flex-basis:320px}
+    .hero-text h1{font-size:28px}
+}
+
+@media (max-width:640px){
+    .hero-inner{align-items:flex-start}
+    .hero-art{flex-basis:100%;order:2}
+    .hero-text{order:1}
+    .hero-text h1{font-size:22px}
+    .food-card img{height:120px}
+}
+
+@media (max-width:420px){
+    .hero{padding:16px}
+    .hero-text .lead{font-size:14px}
+    .food-card img{height:100px}
+}
